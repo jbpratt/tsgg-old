@@ -319,7 +319,11 @@ func (c *chat) renderUsers(dggusers []dggchat.User) {
 		var users string
 		for _, u := range dggusers {
 			// _, flair := c.highestFlair(u)
-			users += fmt.Sprintf("%s%s\n", u.Nick, reset)
+			if c.isHighlighted(u.Nick) {
+				users += fmt.Sprintf("%s%s%s\n", c.config.TagColor, u.Nick, reset)
+			} else {
+				users += fmt.Sprintf("%s%s\n", u.Nick, reset)
+			}
 		}
 
 		userView.Clear()
