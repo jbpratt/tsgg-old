@@ -28,6 +28,7 @@ type config struct {
 	Stalks          []string          `json:"stalks"`
 	ShowJoinLeave   bool              `json:"showjoinleave"`
 	LegacyFlairs    bool              `json:"legacyflairs"`
+	TagColor        string            `json:"tag_color"`
 	sync.RWMutex
 }
 

@@ -207,7 +207,7 @@ func (c *chat) renderMessage(m dggchat.Message) {
 
 	formattedData := m.Message
 	if c.username != "" && strings.Contains(strings.ToLower(m.Message), strings.ToLower(c.username)) || c.isHighlighted(m.Sender.Nick) {
-		formattedData = fmt.Sprintf("%s%s%s%s", bgRed, fgBlack, m.Message, reset)
+		formattedData = fmt.Sprintf("%s%s%s%s", c.config.TagColor, fgBlack, m.Message, reset)
 	} else if strings.HasPrefix(m.Message, ">") {
 		formattedData = fmt.Sprintf("%s%s%s", fgGreen, m.Message, reset)
 	}

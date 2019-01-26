@@ -11,5 +11,7 @@
         "pleb"
     ],
     "showjoinleave": false,
-    "legacyflairs": false
+    "legacyflairs": false,
+    "tag_color": "\u001b[41m",
+    "_comment": "http://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html#8-colors"
 }
