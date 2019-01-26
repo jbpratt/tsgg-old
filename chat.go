@@ -52,7 +52,7 @@ func newChat(config *config, g *gocui.Gui) (*chat, error) {
 		emotes:         make([]string, 0),
 		username:       config.Username,
 		Session:        dgg,
-		flairs:         newflairs,
+		// flairs:         newflairs,
 		guiwrapper: &guiwrapper{
 			gui:        g,
 			messages:   []*guimessage{},
@@ -61,9 +61,9 @@ func newChat(config *config, g *gocui.Gui) (*chat, error) {
 		},
 	}
 
-	if config.LegacyFlairs {
-		chat.flairs = legacyflairs
-	}
+	// if config.LegacyFlairs {
+	// 	chat.flairs = legacyflairs
+	// }
 
 	// don't wait for emotes to load
 	go func() {

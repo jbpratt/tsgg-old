@@ -27,7 +27,7 @@ type guimessage struct {
 
 func (gw *guiwrapper) formatMessage(gm *guimessage) string {
 	formattedDate := gm.ts.Format(gw.timeformat)
-	return fmt.Sprintf("[%s]%s%s", formattedDate, gm.tag, gm.msg)
+	return fmt.Sprintf("[%s] %s", formattedDate, gm.msg)
 }
 
 func (gw *guiwrapper) redraw() {

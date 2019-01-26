@@ -187,12 +187,12 @@ func (c *chat) renderMessage(m dggchat.Message) {
 
 	var coloredNick string
 
-	for _, flair := range c.flairs {
-		if contains(m.Sender.Features, flair.Name) {
-			taggedNick = fmt.Sprintf("[%s]%s", flair.Badge, taggedNick)
-			coloredNick = fmt.Sprintf("%s%s%s%s", Bold, flair.Color, taggedNick, reset)
-		}
-	}
+	// for _, flair := range c.flairs {
+	// 	if contains(m.Sender.Features, flair.Name) {
+	// 		taggedNick = fmt.Sprintf("[%s]%s", flair.Badge, taggedNick)
+	// 		coloredNick = fmt.Sprintf("%s%s%s%s", Bold, flair.Color, taggedNick, reset)
+	// 	}
+	// }
 
 	// for _, highlighted := range c.config.Highlighted {
 	// 	if strings.EqualFold(m.Sender.Nick, highlighted) {
@@ -207,7 +207,7 @@ func (c *chat) renderMessage(m dggchat.Message) {
 
 	formattedData := m.Message
 	if c.username != "" && strings.Contains(strings.ToLower(m.Message), strings.ToLower(c.username)) || c.isHighlighted(m.Sender.Nick) {
-		formattedData = fmt.Sprintf("%s%s%s%s", bgCyan, fgBlack, m.Message, reset)
+		formattedData = fmt.Sprintf("%s%s%s%s", bgRed, fgBlack, m.Message, reset)
 	} else if strings.HasPrefix(m.Message, ">") {
 		formattedData = fmt.Sprintf("%s%s%s", fgGreen, m.Message, reset)
 	}
@@ -317,8 +317,8 @@ func (c *chat) renderUsers(dggusers []dggchat.User) {
 
 		var users string
 		for _, u := range dggusers {
-			_, flair := c.highestFlair(u)
-			users += fmt.Sprintf("%s%s%s\n", flair.Color, u.Nick, reset)
+			// _, flair := c.highestFlair(u)
+			users += fmt.Sprintf("%s%s\n", u.Nick, reset)
 		}
 
 		userView.Clear()
