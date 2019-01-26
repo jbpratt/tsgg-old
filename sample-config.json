@@ -12,6 +12,7 @@
     ],
     "showjoinleave": false,
     "legacyflairs": false,
+    "highlight_color": "\u001b[41m",
     "tag_color": "\u001b[41m",
     "_comment": "http://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html#8-colors"
 }
