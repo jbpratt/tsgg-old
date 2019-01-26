@@ -167,9 +167,27 @@ func (c *chat) renderError(errorString string) {
 	c.guiwrapper.addMessage(guimessage{time.Now(), tag, msg, ""})
 }
 
-func (c *chat) isHighlighted(user string) bool {
+func (c *chat) isHighlighted(message string) bool {
 	for _, highlighted := range c.config.Highlighted {
-		if strings.EqualFold(user, highlighted) {
+		if strings.Contains(strings.ToLower(message), strings.ToLower(highlighted)) {
+			return true
+		}
+	}
+	return false
+}
+
+func (c *chat) getTagColor(user string) string {
+	for tag, color := range c.config.Tags {
+		if strings.EqualFold(strings.ToLower(user), strings.ToLower(tag)) {
+			return color
+		}
+	}
+	return ""
+}
+
+func (c *chat) isTagged(user string) bool {
+	for tag, _ := range c.config.Tags {
+		if strings.EqualFold(strings.ToLower(user), strings.ToLower(tag)) {
 			return true
 		}
 	}
@@ -194,10 +212,8 @@ func (c *chat) renderMessage(m dggchat.Message) {
 	// 	}
 	// }
 
-	for _, highlighted := range c.config.Highlighted {
-		if strings.EqualFold(m.Sender.Nick, highlighted) {
-			coloredNick = fmt.Sprintf("%s%s %s", c.config.TagColor, taggedNick, reset) //change color of username if they are tagged
-		}
+	if c.isTagged(m.Sender.Nick) {
+		coloredNick = fmt.Sprintf("%s%s %s", tagMap[c.getTagColor(m.Sender.Nick)], taggedNick, reset) //change color of username if they are tagged
 	}
 
 	if coloredNick == "" {
@@ -205,12 +221,10 @@ func (c *chat) renderMessage(m dggchat.Message) {
 	}
 
 	formattedData := m.Message
-	if c.username != "" && strings.Contains(strings.ToLower(m.Message), strings.ToLower(c.username)) {
-		formattedData = fmt.Sprintf("%s%s%s%s", c.config.HighlightBg, c.config.HighlightFg, m.Message, reset) //change message color if you get mentioned
-	} else if c.username != "" && c.isHighlighted(m.Sender.Nick) {
-		formattedData = fmt.Sprintf("%s%s%s%s", c.config.HighlightBg, c.config.HighlightFg, m.Message, reset) //change message color if you have the sender tagged
+	if c.username != "" && strings.Contains(strings.ToLower(m.Message), strings.ToLower(c.username)) || c.isHighlighted(m.Message) {
+		formattedData = fmt.Sprintf("%s%s%s%s", c.config.HighlightBg, c.config.HighlightFg, m.Message, reset) //change message color if you get mentioned or the message contains a highlighed string
 	} else if strings.HasPrefix(m.Message, ">") {
-		formattedData = fmt.Sprintf("%s%s%s", fgGreen, m.Message, reset)
+		formattedData = fmt.Sprintf("%s%s%s", fgGreen, m.Message, reset) //greentext
 	}
 
 	formattedTag := "   "
@@ -319,8 +333,8 @@ func (c *chat) renderUsers(dggusers []dggchat.User) {
 		var users string
 		for _, u := range dggusers {
 			// _, flair := c.highestFlair(u)
-			if c.isHighlighted(u.Nick) {
-				users += fmt.Sprintf("%s%s%s\n", c.config.TagColor, u.Nick, reset)
+			if c.isTagged(u.Nick) {
+				users += fmt.Sprintf("%s%s%s\n", tagMap[c.getTagColor(m.Sender.Nick)], u.Nick, reset)
 			} else {
 				users += fmt.Sprintf("%s%s\n", u.Nick, reset)
 			}

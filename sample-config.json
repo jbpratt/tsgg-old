@@ -10,6 +10,9 @@
         "Polecat",
         "pleb"
     ],
+	"tags": {
+		"username": "blue"
+	},
     "showjoinleave": false,
     "legacyflairs": false,
     "tag_color": "\u001b[41m",

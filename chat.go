@@ -211,7 +211,7 @@ func (c *chat) generateSuggestions(s string) []string {
 
 func (c *chat) sortUsers(u []dggchat.User) {
 	sort.SliceStable(u, func(i, j int) bool { return u[i].Nick < u[j].Nick })
-	sort.SliceStable(u, func(i, j int) bool { return c.isHighlighted(u[i].Nick) })
+	sort.SliceStable(u, func(i, j int) bool { return c.isTagged(u[i].Nick) })
 }
 
 func (c *chat) highestFlair(u dggchat.User) (int, flair) {
