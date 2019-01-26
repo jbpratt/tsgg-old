@@ -212,7 +212,7 @@ func (c *chat) generateSuggestions(s string) []string {
 func (c *chat) sortUsers(u []dggchat.User) {
 	sort.SliceStable(u, func(i, j int) bool { return u[i].Nick < u[j].Nick })
 	sort.SliceStable(u, func(i, j int) bool { return c.isTagged(u[i].Nick) })
-	sort.SliceStable(u, func(i, j int) bool { return c.getTagColor(u[i].Nick) < c.getTagColor(u[i].Nick) })
+	sort.SliceStable(u, func(i, j int) bool { return c.getTagColor(u[i].Nick) > c.getTagColor(u[j].Nick) })
 }
 
 func (c *chat) highestFlair(u dggchat.User) (int, flair) {

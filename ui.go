@@ -334,7 +334,7 @@ func (c *chat) renderUsers(dggusers []dggchat.User) {
 		for _, u := range dggusers {
 			// _, flair := c.highestFlair(u)
 			if c.isTagged(u.Nick) {
-				users += fmt.Sprintf("%s%s%s\n", tagMap[c.getTagColorColor(u.Nick)], u.Nick, reset)
+				users += fmt.Sprintf("%s%s%s\n", tagMap[c.getTagColor(u.Nick)], u.Nick, reset)
 			} else {
 				users += fmt.Sprintf("%s%s\n", u.Nick, reset)
 			}
