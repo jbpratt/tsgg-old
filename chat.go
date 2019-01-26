@@ -211,13 +211,7 @@ func (c *chat) generateSuggestions(s string) []string {
 
 func (c *chat) sortUsers(u []dggchat.User) {
 	sort.SliceStable(u, func(i, j int) bool {
-		iUser := u[i]
-		jUser := u[j]
-
-		iIndex, _ := c.highestFlair(iUser)
-		jIndex, _ := c.highestFlair(jUser)
-
-		return iIndex > jIndex
+		return u[i].Nick > u[j].Nick
 	})
 }
 

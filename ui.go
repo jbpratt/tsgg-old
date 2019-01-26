@@ -315,6 +315,7 @@ func (c *chat) renderUsers(dggusers []dggchat.User) {
 
 		userView.Title = fmt.Sprintf("%d users:", len(dggusers))
 		c.sortUsers(dggusers)
+		sort.Slice(dggusers, func(i, j int) bool { return c.isHighlighted(dggusers[i].Nick) })
 
 		var users string
 		for _, u := range dggusers {
