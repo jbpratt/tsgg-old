@@ -30,6 +30,8 @@ type config struct {
 	LegacyFlairs    bool              `json:"legacyflairs"`
 	HighlightColor  string            `json:"highlight_color"`
 	TagColor        string            `json:"tag_color"`
+	HighlightBg     string            `json:"highlight_bg_color"`
+	HighlightFg     string            `json:"highlight_fg_color"`
 	sync.RWMutex
 }
 

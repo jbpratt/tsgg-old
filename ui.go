@@ -196,7 +196,7 @@ func (c *chat) renderMessage(m dggchat.Message) {
 
 	for _, highlighted := range c.config.Highlighted {
 		if strings.EqualFold(m.Sender.Nick, highlighted) {
-			coloredNick = fmt.Sprintf("%s%s %s", fgCyan, taggedNick, reset)
+			coloredNick = fmt.Sprintf("%s%s %s", c.config.HighlightColor, taggedNick, reset) //change color of username if they are tagged
 		}
 	}
 
@@ -205,8 +205,10 @@ func (c *chat) renderMessage(m dggchat.Message) {
 	}
 
 	formattedData := m.Message
-	if c.username != "" && strings.Contains(strings.ToLower(m.Message), strings.ToLower(c.username)) || c.isHighlighted(m.Sender.Nick) {
-		formattedData = fmt.Sprintf("%s%s%s%s", c.config.HighlightColor, fgWhite, m.Message, reset)
+	if c.username != "" && strings.Contains(strings.ToLower(m.Message), strings.ToLower(c.username)) {
+		formattedData = fmt.Sprintf("%s%s%s%s", c.config.HighlightBg, c.config.HighlightFg, m.Message, reset) //change message color if you get mentioned
+	} else if c.username != "" && c.isHighlighted(m.Sender.Nick) {
+		formattedData = fmt.Sprintf("%s%s%s%s", c.config.HighlightBg, c.config.HighlightFg, m.Message, reset) //change message color if you have the sender tagged
 	} else if strings.HasPrefix(m.Message, ">") {
 		formattedData = fmt.Sprintf("%s%s%s", fgBrightGreen, m.Message, reset)
 	}
@@ -317,7 +319,11 @@ func (c *chat) renderUsers(dggusers []dggchat.User) {
 		var users string
 		for _, u := range dggusers {
 			// _, flair := c.highestFlair(u)
-			users += fmt.Sprintf("%s%s\n", u.Nick, reset)
+			if c.isHighlighted(u.Nick) {
+				users += fmt.Sprintf("%s%s%s\n", c.config.TagColor, u.Nick, reset)
+			} else {
+				users += fmt.Sprintf("%s%s\n", u.Nick, reset)
+			}
 		}
 
 		userView.Clear()
