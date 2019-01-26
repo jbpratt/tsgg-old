@@ -206,9 +206,9 @@ func (c *chat) renderMessage(m dggchat.Message) {
 
 	formattedData := m.Message
 	if c.username != "" && strings.Contains(strings.ToLower(m.Message), strings.ToLower(c.username)) {
-		formattedData = fmt.Sprintf("%s%s%s", fgBlue, m.Message, reset) //change message color if you get mentioned
+		formattedData = fmt.Sprintf("%s%s%s%s", c.config.HighlightBg, c.config.HighlightFg, m.Message, reset) //change message color if you get mentioned
 	} else if c.username != "" && c.isHighlighted(m.Sender.Nick) {
-		formattedData = fmt.Sprintf("%s%s%s", fgMagenta, m.Message, reset) //change message color if you have the sender tagged
+		formattedData = fmt.Sprintf("%s%s%s%s", c.config.HighlightBg, c.config.HighlightFg, m.Message, reset) //change message color if you have the sender tagged
 	} else if strings.HasPrefix(m.Message, ">") {
 		formattedData = fmt.Sprintf("%s%s%s", fgGreen, m.Message, reset)
 	}

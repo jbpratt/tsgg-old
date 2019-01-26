@@ -29,6 +29,8 @@ type config struct {
 	ShowJoinLeave   bool              `json:"showjoinleave"`
 	LegacyFlairs    bool              `json:"legacyflairs"`
 	TagColor        string            `json:"tag_color"`
+	HighlightBg     string            `json:"highlight_bg_color"`
+	HighlightFg     string            `json:"highlight_fg_color"`
 	sync.RWMutex
 }
 
