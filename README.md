@@ -9,5 +9,5 @@ https://github.com/voloshink/tdgg
 
 TODO:
 - [] Fix scaling down
-- [] Proper word wrap
 - [] Show/Hide Users list with key command
+- [] Tab complete emote modifiers
