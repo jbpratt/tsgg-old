@@ -15,7 +15,7 @@ import (
 )
 
 type config struct {
-	DGGKey          string            `json:"dgg_key"`
+	AuthToken       string            `json:"auth_token"`
 	CustomURL       string            `json:"custom_url"`
 	Username        string            `json:"username"`
 	Timeformat      string            `json:"timeformat"`
@@ -27,7 +27,6 @@ type config struct {
 	Ignores         []string          `json:"ignores"`
 	Stalks          []string          `json:"stalks"`
 	ShowJoinLeave   bool              `json:"showjoinleave"`
-	LegacyFlairs    bool              `json:"legacyflairs"`
 	HighlightColor  string            `json:"highlight_color"`
 	TagColor        string            `json:"tag_color"`
 	HighlightBg     string            `json:"highlight_bg_color"`

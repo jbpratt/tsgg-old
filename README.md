@@ -1,6 +1,8 @@
-# tdgg
-dgg chat in the terminal
+# tsgg
+sgg chat in the terminal
 
-TODO:
+`cp sample-config.json config.json`
+`go build`
 
-I'd also suggest that the conf file at first looks for ~/.config/tdgg.config or something so I don't have to copy it every time I rebuild
+#### credits to original project
+https://github.com/voloshink/tdgg

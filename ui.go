@@ -30,7 +30,14 @@ const (
 	bgCyan    color = "\u001b[46m"
 	bgWhite   color = "\u001b[47m"
 
-	// TODO add bright bg colors
+	bgBrightBlack   color = "\u001b[40;1m"
+	bgBrightRed     color = "\u001b[41;1m"
+	bgBrightGreen   color = "\u001b[42;1m"
+	bgBrightYellow  color = "\u001b[43;1m"
+	bgBrightBlue    color = "\u001b[44;1m"
+	bgBrightMagenta color = "\u001b[45;1m"
+	bgBrightCyan    color = "\u001b[46;1m"
+	bgBrightWhite   color = "\u001b[47;1m"
 
 	fgBlack   color = "\u001b[30m"
 	fgRed     color = "\u001b[31m"
@@ -186,7 +193,7 @@ func (c *chat) getTagColor(user string) string {
 }
 
 func (c *chat) isTagged(user string) bool {
-	for tag, _ := range c.config.Tags {
+	for tag := range c.config.Tags {
 		if strings.EqualFold(strings.ToLower(user), strings.ToLower(tag)) {
 			return true
 		}
@@ -204,13 +211,6 @@ func (c *chat) renderMessage(m dggchat.Message) {
 	}
 
 	var coloredNick string
-
-	// for _, flair := range c.flairs {
-	// 	if contains(m.Sender.Features, flair.Name) {
-	// 		taggedNick = fmt.Sprintf("[%s]%s", flair.Badge, taggedNick)
-	// 		coloredNick = fmt.Sprintf("%s%s%s%s", Bold, flair.Color, taggedNick, reset)
-	// 	}
-	// }
 
 	if c.isTagged(m.Sender.Nick) {
 		coloredNick = fmt.Sprintf("%s%s %s", tagMap[c.getTagColor(m.Sender.Nick)], taggedNick, reset) //change color of username if they are tagged
@@ -332,7 +332,6 @@ func (c *chat) renderUsers(dggusers []dggchat.User) {
 
 		var users string
 		for _, u := range dggusers {
-			// _, flair := c.highestFlair(u)
 			if c.isTagged(u.Nick) {
 				users += fmt.Sprintf("%s%s%s\n", tagMap[c.getTagColor(u.Nick)], u.Nick, reset)
 			} else {

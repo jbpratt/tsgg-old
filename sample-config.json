@@ -1,5 +1,5 @@
 {
-    "dgg_key": "authtoken here",
+    "auth_token": "authtoken here",
     "custom_url": "wss://chat.strims.gg/ws",
     "username": "pleb",
     "timeformat": "3:04PM",
@@ -14,7 +14,6 @@
 		"username": "blue"
 	},
     "showjoinleave": false,
-    "legacyflairs": false,
     "highlight_color": "\u001b[41m",
     "tag_color": "\u001b[41m",
 	"highlight_bg_color": "\u001b[47m",
