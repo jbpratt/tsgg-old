@@ -205,5 +205,7 @@ func (c *chat) generateSuggestions(s string) []string {
 
 func (c *chat) sortUsers(u []dggchat.User) {
 	sort.SliceStable(u, func(i, j int) bool { return u[i].Nick < u[j].Nick })
-	sort.SliceStable(u, func(i, j int) bool { return c.getTagColor(u[i].Nick) > c.getTagColor(u[j].Nick) })
+	sort.SliceStable(u, func(i, j int) bool {
+		return c.config.Tags[strings.ToLower(u[i].Nick)] > c.config.Tags[strings.ToLower(u[j].Nick)]
+	})
 }

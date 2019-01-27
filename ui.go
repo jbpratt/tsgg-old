@@ -183,15 +183,6 @@ func (c *chat) isHighlighted(message string) bool {
 	return false
 }
 
-func (c *chat) getTagColor(user string) string {
-	for tag, color := range c.config.Tags {
-		if strings.EqualFold(strings.ToLower(user), strings.ToLower(tag)) {
-			return color
-		}
-	}
-	return ""
-}
-
 func (c *chat) isTagged(user string) bool {
 	for tag := range c.config.Tags {
 		if strings.EqualFold(strings.ToLower(user), strings.ToLower(tag)) {
@@ -213,7 +204,7 @@ func (c *chat) renderMessage(m dggchat.Message) {
 	var coloredNick string
 
 	if c.isTagged(m.Sender.Nick) {
-		coloredNick = fmt.Sprintf("%s%s %s", tagMap[c.getTagColor(m.Sender.Nick)], taggedNick, reset) //change color of username if they are tagged
+		coloredNick = fmt.Sprintf("%s%s %s", tagMap[c.config.Tags[strings.ToLower(m.Sender.Nick)]], taggedNick, reset) //change color of username if they are tagged
 	}
 
 	if coloredNick == "" {
@@ -333,7 +324,7 @@ func (c *chat) renderUsers(dggusers []dggchat.User) {
 		var users string
 		for _, u := range dggusers {
 			if c.isTagged(u.Nick) {
-				users += fmt.Sprintf("%s%s%s\n", tagMap[c.getTagColor(u.Nick)], u.Nick, reset)
+				users += fmt.Sprintf("%s%s%s\n", tagMap[c.config.Tags[strings.ToLower(u.Nick)]], u.Nick, reset)
 			} else {
 				users += fmt.Sprintf("%s%s\n", u.Nick, reset)
 			}
