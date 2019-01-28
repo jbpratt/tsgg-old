@@ -88,6 +88,10 @@ func main() {
 		log.Panicln(err)
 	}
 
+	if err := g.SetKeybinding("", gocui.KeyF2, gocui.ModNone, chat.showUserList); err != nil {
+		log.Panicln(err)
+	}
+
 	if err := g.SetKeybinding("input", gocui.KeyArrowUp, gocui.ModNone, func(g *gocui.Gui, v *gocui.View) error {
 		err = chat.historyUp(g, v)
 		return err

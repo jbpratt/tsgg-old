@@ -18,8 +18,9 @@ type chat struct {
 	emotes     []string
 	guiwrapper *guiwrapper
 
-	helpactive  bool
-	debugActive bool
+	helpactive     bool
+	debugActive    bool
+	userListActive bool
 
 	messageHistory []string
 	historyIndex   int
@@ -204,7 +205,7 @@ func (c *chat) generateSuggestions(s string) []string {
 }
 
 func (c *chat) sortUsers(u []dggchat.User) {
-	sort.SliceStable(u, func(i, j int) bool { return u[i].Nick < u[j].Nick })
+	sort.SliceStable(u, func(i, j int) bool { return strings.ToLower(u[i].Nick) < strings.ToLower(u[j].Nick) })
 	sort.SliceStable(u, func(i, j int) bool {
 		return c.config.Tags[strings.ToLower(u[i].Nick)] > c.config.Tags[strings.ToLower(u[j].Nick)]
 	})

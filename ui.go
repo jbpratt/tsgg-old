@@ -155,6 +155,17 @@ func (c *chat) showDebug(g *gocui.Gui, v *gocui.View) error {
 	return err
 }
 
+func (c *chat) showUserList(g *gocui.Gui, v *gocui.View) error {
+	if !c.userListActive {
+		c.userListActive = !c.userListActive
+		_, err := g.SetViewOnTop("users")
+		return err
+	}
+	c.userListActive = !c.userListActive
+	_, err := g.SetViewOnBottom("users")
+	return err
+}
+
 func (c *chat) renderDebug(s interface{}) {
 	c.guiwrapper.gui.Update(func(g *gocui.Gui) error {
 		debugView, err := g.View("debug")
@@ -218,6 +229,7 @@ func (c *chat) renderMessage(m dggchat.Message) {
 		formattedData = fmt.Sprintf("%s%s%s", fgGreen, m.Message, reset) //greentext
 	}
 
+	//currently not in use
 	formattedTag := "   "
 	c.config.RLock()
 	if color, ok := c.config.Tags[strings.ToLower(m.Sender.Nick)]; ok {
