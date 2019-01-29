@@ -13,6 +13,8 @@ import (
 
 type color string
 
+var userlistShown = true
+
 const (
 	none  color = ""
 	reset color = "\u001b[0m"
@@ -100,7 +102,12 @@ func layout(g *gocui.Gui) error {
 
 	}
 
-	if messages, err := g.SetView("messages", 0, 0, maxX-20, maxY-3); err != nil {
+	var xDimension = maxX - 20
+	if !userlistShown {
+		xDimension = maxX - 1
+	}
+
+	if messages, err := g.SetView("messages", 0, 0, xDimension, maxY-3); err != nil {
 		if err != gocui.ErrUnknownView {
 			return err
 		}
@@ -109,7 +116,7 @@ func layout(g *gocui.Gui) error {
 		messages.Wrap = true
 	}
 
-	if input, err := g.SetView("input", 0, maxY-3, maxX-20, maxY-1); err != nil {
+	if input, err := g.SetView("input", 0, maxY-3, xDimension, maxY-1); err != nil {
 		if err != gocui.ErrUnknownView {
 			return err
 		}
@@ -134,34 +141,32 @@ func layout(g *gocui.Gui) error {
 }
 
 func (c *chat) showHelp(g *gocui.Gui, v *gocui.View) error {
+	c.helpactive = !c.helpactive
 	if !c.helpactive {
-		c.helpactive = !c.helpactive
 		_, err := g.SetViewOnTop("help")
 		return err
 	}
-	c.helpactive = !c.helpactive
 	_, err := g.SetViewOnBottom("help")
 	return err
 }
 
 func (c *chat) showDebug(g *gocui.Gui, v *gocui.View) error {
+	c.debugActive = !c.debugActive
 	if !c.debugActive {
-		c.debugActive = !c.debugActive
 		_, err := g.SetViewOnTop("debug")
 		return err
 	}
-	c.debugActive = !c.debugActive
 	_, err := g.SetViewOnBottom("debug")
 	return err
 }
 
 func (c *chat) showUserList(g *gocui.Gui, v *gocui.View) error {
+	c.userListActive = !c.userListActive
+	userlistShown = !userlistShown
 	if !c.userListActive {
-		c.userListActive = !c.userListActive
 		_, err := g.SetViewOnTop("users")
 		return err
 	}
-	c.userListActive = !c.userListActive
 	_, err := g.SetViewOnBottom("users")
 	return err
 }
