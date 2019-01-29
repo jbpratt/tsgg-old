@@ -9,5 +9,7 @@ https://github.com/voloshink/tdgg
 
 TODO:
 - [] Fix scaling down
-- [] Show/Hide Users list with key command
+- [x] Show/Hide Users list with key command
 - [] Tab complete emote modifiers
+- [] /me feature support
+- [] Subsequent messages from same user lack username (similar to how it is done in chat)
